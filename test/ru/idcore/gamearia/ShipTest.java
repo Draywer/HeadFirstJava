@@ -62,6 +62,34 @@ class ShipTest {
                 gameAria.setShips(ship);
             }
         }
+        //выстрел
+//        gameAria.getGameZones()[5][5].setStateName(gameAria.getState(4));
+//        gameAria.getGameZones()[1][1].setStateName(gameAria.getState(4));
+//        gameAria.getGameZones()[1][10].setStateName(gameAria.getState(4));
+//        gameAria.getGameZones()[10][1].setStateName(gameAria.getState(4));
+//        gameAria.getGameZones()[10][10].setStateName(gameAria.getState(4));
+//        gameAria.getGameZones()[3][6].setStateName(gameAria.getState(4));
+//        gameAria.getGameZones()[4][10].setStateName(gameAria.getState(4));
+//        gameAria.getGameZones()[8][9].setStateName(gameAria.getState(4));
+//        gameAria.getGameZones()[8][1].setStateName(gameAria.getState(4));
+//        gameAria.getGameZones()[9][4].setStateName(gameAria.getState(4));
+//        gameAria.getGameZones()[9][9].setStateName(gameAria.getState(4));
+//        gameAria.getGameZones()[1][6].setStateName(gameAria.getState(4));
+//        gameAria.getGameZones()[4][7].setStateName(gameAria.getState(4));
+
+        //потопить все корабли - залп из всех орудий
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
+                gameAria.getGameZones()[i][j].setStateName(gameAria.getState(4));
+            }
+        }
+
+        //проверка попаданий в корабли
+        for (Ship ship: gameAria.getShips()
+             ) {
+            ship.setCountHit(gameAria);
+        }
+
 
         gameAria.drawGameAria();
 //
@@ -73,7 +101,7 @@ class ShipTest {
         //выводим названия кораблей
         for (Ship ship: gameAria.getShips()
              ) {
-            System.out.println(ship.getNameShip());
+            System.out.println(ship.getNameShip() + " : " + "Количество попаданий - " + ship.getCountHit() + "; Состояние - " + ship.getShipState());
         }
 
     }

@@ -16,11 +16,17 @@ public class Ship {
     private GameZone[] gameZones;
     //ориентация корабля: true - горизонтально, false - вертикально
     private boolean shipOrient;
+    //количество попаданий
+    private int countHit;
+    //состояние корабля
+    private String shipState;
 
     public Ship(int size, GameZone[][] gameZones, String stateOld, String stateNew) {
         this.size = size;
         this.nameShip = nameCatalog[size - 1];
         this.gameZones = new GameZone[size];
+        this.countHit = 0;
+        this.shipState = "НЕПОВРЕЖДЕН";
         //поиск расположения корабля
         findShipPosition(size, gameZones, stateOld);
         //располагаем корабль на игровом поле
@@ -38,6 +44,16 @@ public class Ship {
         for (GameZone gameZone: this.gameZones) {
                 gameZone.setStateName(stateNew);
             }
+    }
+
+    public String getShipState() {
+        if (this.countHit > 0 && this.countHit < this.size) {
+            shipState = "РАНЕН";
+        } else if (this.countHit == this.size) {
+            shipState = "ПОТОПЛЕН";
+            return shipState;
+        }
+        return shipState;
     }
 
     public String getNameShip() {
@@ -70,6 +86,21 @@ public class Ship {
 
     public void setShipOrient(boolean shipOrient) {
         this.shipOrient = shipOrient;
+    }
+
+    public int getCountHit() {
+        return countHit;
+    }
+
+    public void setCountHit(GameAria gameAria) {
+        //this.countHit = 0;
+        for (GameZone zone: gameZones
+             ) {
+            if (zone.getStateName().equals(gameAria.getState(4))) {
+                this.countHit++;
+                zone.setStateName(gameAria.getState(5));
+            }
+        }
     }
 
     //поиск расположения корабля
