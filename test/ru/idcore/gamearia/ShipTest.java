@@ -10,39 +10,51 @@ class ShipTest {
 //        }
 
         GameAria gameAria = new GameAria(11, 11);
-
-        //левый верхний угол
-        gameAria.getGameZones()[3][1].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[3][2].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[3][3].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[3][4].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[3][5].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[2][5].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[1][5].setStateName(gameAria.getState(2));
-
-        //правый верхний угол
-        gameAria.getGameZones()[1][8].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[2][8].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[3][8].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[3][9].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[3][10].setStateName(gameAria.getState(2));
-
-        //правый нижний угол
-        gameAria.getGameZones()[10][8].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[9][8].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[8][8].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[8][9].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[8][10].setStateName(gameAria.getState(2));
-
-        //левый нижний угол
-        gameAria.getGameZones()[8][1].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[8][2].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[8][3].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[9][3].setStateName(gameAria.getState(2));
-        gameAria.getGameZones()[10][3].setStateName(gameAria.getState(2));
+//
+//        //левый верхний угол
+//        gameAria.getGameZones()[3][1].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[3][2].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[3][3].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[3][4].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[3][5].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[3][6].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[2][6].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[2][5].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[1][5].setStateName(gameAria.getState(2));
+//
+//        //правый верхний угол
+//        gameAria.getGameZones()[1][8].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[2][8].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[3][8].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[3][9].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[3][10].setStateName(gameAria.getState(2));
+//
+//        //правый нижний угол
+//        gameAria.getGameZones()[10][8].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[9][8].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[8][8].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[8][9].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[8][10].setStateName(gameAria.getState(2));
+//
+//        //левый нижний угол
+//        gameAria.getGameZones()[8][1].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[8][2].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[8][3].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[9][3].setStateName(gameAria.getState(2));
+//        gameAria.getGameZones()[10][3].setStateName(gameAria.getState(2));
 
 //        //выстрел
-//        gameAria.getGameZones()[1][2].setStateName(gameAria.getState(4));
+//        gameAria.getGameZones()[1][6].setStateName(gameAria.getState(2));
+
+        Ship ship1 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+        Ship ship2 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+        Ship ship3 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+        Ship ship4 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+        Ship ship5 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+        Ship ship6 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+        Ship ship7 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+        Ship ship8 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+
 
         gameAria.drawGameAria();
 

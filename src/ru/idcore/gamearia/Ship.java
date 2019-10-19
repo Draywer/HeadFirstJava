@@ -13,19 +13,26 @@ public class Ship {
     //ориентация корабля: true - горизонтально, false - вертикально
     private boolean shipOrient;
 
-    public Ship(int size, GameZone[][] gameZones, String state) {
+    public Ship(int size, GameZone[][] gameZones, String stateOld, String stateNew) {
         this.size = size;
         this.gameZones = new GameZone[size];
         //поиск расположения корабля
-        findShipPosition(size, gameZones, state);
+        findShipPosition(size, gameZones, stateOld);
         //располагаем корабль на игровом поле
-        this.gameZones[0] = gameZones[1][1];
-        this.gameZones[1] = gameZones[1][2];
-        this.gameZones[2] = gameZones[1][3];
-        for (GameZone gameZone: this.gameZones
-             ) {
-            gameZone.setStateName(state);
+
+        for (int i = 0; i < size; i++) {
+            if (shipOrient) {
+                //располагаем корабль горизонтально
+                this.gameZones[i] = gameZones[verticalStartPoint][horizontalStartPoint + i];
+            } else {
+                //располагаем кораюль вертикально
+                this.gameZones[i] = gameZones[verticalStartPoint + i][horizontalStartPoint];
+            }
         }
+        //изменям название зоны, в привязке к кораблю
+        for (GameZone gameZone: this.gameZones) {
+                gameZone.setStateName(stateNew);
+            }
     }
 
     public int getSize() {
@@ -88,31 +95,192 @@ public class Ship {
     //проверка горизонтального расположения корабля
     public boolean checkHorizontalShipPosition(int size, GameZone[][] gameZones, String state, int verticalStartPoint, int horizontalStartPoint){
         if (verticalStartPoint == 1 && horizontalStartPoint == 1) {
-            //расположение корабля от правого верхнего угла
-
-
+            //горизонтальное расположение корабля от левого верхнего угла
+            for (int i = verticalStartPoint; i <= verticalStartPoint + 1; i++) {
+                for (int j = horizontalStartPoint; j <= horizontalStartPoint + size; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
         } else if (verticalStartPoint > 1 && verticalStartPoint < gameZones.length - 1 && horizontalStartPoint == 1) {
-            //расположение корабля от левой границы поля
-
+            //горизонтальное расположение корабля от левой границы поля
+            for (int i = verticalStartPoint - 1; i <= verticalStartPoint + 1; i++) {
+                for (int j = horizontalStartPoint; j <= horizontalStartPoint + size; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
         } else if (verticalStartPoint == gameZones.length - 1 && horizontalStartPoint == 1) {
-            //расположение корабля от левого нижнего угла
-
-        } else if (verticalStartPoint == 1 && horizontalStartPoint > 1 && horizontalStartPoint < gameZones.length - 1 - size) {
-            //расположение корабля у верхней границы игрового поля
-
-        } else if (verticalStartPoint > 1 && verticalStartPoint < gameZones.length - 1 && horizontalStartPoint > 1 && horizontalStartPoint < gameZones.length - 1 - size) {
-            //расположение корабля на игровом поле
-
-        } else if (verticalStartPoint == gameZones.length - 1 && horizontalStartPoint > 1 && horizontalStartPoint < gameZones.length - 1 - size) {
-            //расположение корабля у нижней границы игрового поля
-
+            //горизонтальное расположение корабля от левого нижнего угла
+            for (int i = verticalStartPoint - 1; i <= verticalStartPoint; i++) {
+                for (int j = horizontalStartPoint; j <= horizontalStartPoint + size; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } else if (verticalStartPoint == 1 && horizontalStartPoint > 1 && horizontalStartPoint <= gameZones.length - 1 - size) {
+            //горизонтальное расположение корабля по верхней границе игрового поля
+            for (int i = verticalStartPoint; i <= verticalStartPoint + 1; i++) {
+                for (int j = horizontalStartPoint - 1; j <= horizontalStartPoint + size; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } else if (verticalStartPoint == 1 && horizontalStartPoint == gameZones.length - size) {
+            //горизонтальное расположение корабля по верхней границе игрового поля к правому верхнему углу
+            for (int i = verticalStartPoint; i <= verticalStartPoint + 1; i++) {
+                for (int j = horizontalStartPoint - 1; j <= horizontalStartPoint + size - 1; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } else if (verticalStartPoint > 1 && verticalStartPoint < gameZones.length - 1 && horizontalStartPoint > 1 && horizontalStartPoint <= gameZones.length - 1 - size) {
+            //горизонтальное расположение корабля на игровом поле
+            for (int i = verticalStartPoint - 1; i <= verticalStartPoint + 1; i++) {
+                for (int j = horizontalStartPoint - 1; j <= horizontalStartPoint + size; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } else if (verticalStartPoint > 1 && verticalStartPoint < gameZones.length - 1 && horizontalStartPoint == gameZones.length - size) {
+            //горизонтальное расположение корабля на игровом поле в притык к правой границе
+            for (int i = verticalStartPoint - 1; i <= verticalStartPoint + 1; i++) {
+                for (int j = horizontalStartPoint - 1; j <= horizontalStartPoint + size - 1; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } else if (verticalStartPoint == gameZones.length - 1 && horizontalStartPoint > 1 && horizontalStartPoint <= gameZones.length - 1 - size) {
+            //горизонтальное расположение корабля у нижней границы игрового поля
+            for (int i = verticalStartPoint - 1; i <= verticalStartPoint; i++) {
+                for (int j = horizontalStartPoint - 1; j <= horizontalStartPoint + size; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } else if (verticalStartPoint == gameZones.length - 1 && horizontalStartPoint == gameZones.length - size) {
+            //горизонтальное расположение корабля у нижней границы игрового поля в притык к правой границе
+            for (int i = verticalStartPoint - 1; i <= verticalStartPoint; i++) {
+                for (int j = horizontalStartPoint - 1; j <= horizontalStartPoint + size - 1; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
         return false;
     }
 
     //проверка вертикального расположения корабля
     public boolean checkVerticalShipPosition(int size, GameZone[][] gameZones, String state, int verticalStartPoint, int horizontalStartPoint){
-        //
+        if (verticalStartPoint == 1 && horizontalStartPoint == 1) {
+            //вертикальное расположение корабля от левого верхнего угла
+            for (int i = verticalStartPoint; i <= verticalStartPoint + size; i++) {
+                for (int j = horizontalStartPoint; j <= horizontalStartPoint + 1; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }else if (verticalStartPoint > 1 && verticalStartPoint <= gameZones.length - size - 1 && horizontalStartPoint == 1) {
+            //вертикальное расположение корабля по левой границе поля
+            for (int i = verticalStartPoint - 1; i <= verticalStartPoint + size; i++) {
+                for (int j = horizontalStartPoint; j <= horizontalStartPoint + 1; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } else if (verticalStartPoint > 1 && verticalStartPoint == gameZones.length - size && horizontalStartPoint == 1) {
+            //вертикальное расположение корабля по левой границе поля в притык к левому нижнему углу
+            for (int i = verticalStartPoint - 1; i <= verticalStartPoint + size - 1; i++) {
+                for (int j = horizontalStartPoint; j <= horizontalStartPoint + 1; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }else if (verticalStartPoint == 1 && horizontalStartPoint > 1 && horizontalStartPoint < gameZones.length - 1 ) {
+            //вертикальное расположение корабля от верхней границы поля
+            for (int i = verticalStartPoint; i <= verticalStartPoint + size; i++) {
+                for (int j = horizontalStartPoint - 1; j <= horizontalStartPoint + 1; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } else if (verticalStartPoint > 1 && verticalStartPoint <= gameZones.length - size - 1 && horizontalStartPoint > 1 && horizontalStartPoint < gameZones.length - 1 ) {
+            //вертикальное расположение корабля по игровому полю
+            for (int i = verticalStartPoint - 1; i <= verticalStartPoint + size; i++) {
+                for (int j = horizontalStartPoint - 1; j <= horizontalStartPoint + 1; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }else if (verticalStartPoint == gameZones.length - size && horizontalStartPoint > 1 && horizontalStartPoint < gameZones.length - 1) {
+            //вертикальное расположение корабля по игровому полю в притык у нижней границе
+            for (int i = verticalStartPoint - 1; i <= verticalStartPoint + size - 1; i++) {
+                for (int j = horizontalStartPoint - 1; j <= horizontalStartPoint + 1; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } else if (verticalStartPoint == 1 && horizontalStartPoint ==gameZones.length - 1 ) {
+            //вертикальное расположение корабля от правого верхнего угла
+            for (int i = verticalStartPoint; i <= verticalStartPoint + size; i++) {
+                for (int j = horizontalStartPoint - 1; j <= horizontalStartPoint; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } else if (verticalStartPoint > 1 && verticalStartPoint <= gameZones.length - size - 1 && horizontalStartPoint == gameZones.length - 1 ) {
+            //вертикальное расположение корабля по правой границе поля
+            for (int i = verticalStartPoint - 1; i <= verticalStartPoint + size; i++) {
+                for (int j = horizontalStartPoint - 1; j <= horizontalStartPoint; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } else if (verticalStartPoint == gameZones.length - size && horizontalStartPoint == gameZones.length - 1 ) {
+            //вертикальное расположение корабля впритык к правому нижнему углу
+            for (int i = verticalStartPoint - 1; i <= verticalStartPoint + size - 1; i++) {
+                for (int j = horizontalStartPoint - 1; j <= horizontalStartPoint; j++){
+                    if (!gameZones[i][j].checkGameZoneFree(state)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
         return false;
     }
 
