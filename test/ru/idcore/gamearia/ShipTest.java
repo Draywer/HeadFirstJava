@@ -46,20 +46,35 @@ class ShipTest {
 //        //выстрел
 //        gameAria.getGameZones()[1][6].setStateName(gameAria.getState(2));
 
-        Ship ship1 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
-        Ship ship2 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
-        Ship ship3 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
-        Ship ship4 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
-        Ship ship5 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
-        Ship ship6 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
-        Ship ship7 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
-        Ship ship8 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+//        Ship ship1 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+//        Ship ship2 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+//        Ship ship3 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+//        Ship ship4 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+//        Ship ship5 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+//        Ship ship6 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+//        Ship ship7 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
+//        Ship ship8 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
 
+        //Формируем флотилию и расставляем ее на игровом поле
+        for (int i = 4; i >= 1; i--) {
+            for (int j = 1; j <= 4 - i +1; j++) {
+                Ship ship = new Ship(i, gameAria.getGameZones(),gameAria.getState(1), gameAria.getState(2));
+                gameAria.setShips(ship);
+            }
+        }
 
         gameAria.drawGameAria();
+//
+//        System.out.println(gameAria.getGameZones()[1][1].checkGameZoneFree(gameAria.getState(1)));
+//        System.out.println(gameAria.getGameZones()[1][2].checkGameZoneFree(gameAria.getState(1)));
+//        System.out.println(gameAria.getGameZones()[1][3].checkGameZoneFree(gameAria.getState(1)));
 
-        System.out.println(gameAria.getGameZones()[1][1].checkGameZoneFree(gameAria.getState(1)));
-        System.out.println(gameAria.getGameZones()[1][2].checkGameZoneFree(gameAria.getState(1)));
-        System.out.println(gameAria.getGameZones()[1][3].checkGameZoneFree(gameAria.getState(1)));
+
+        //выводим названия кораблей
+        for (Ship ship: gameAria.getShips()
+             ) {
+            System.out.println(ship.getNameShip());
+        }
+
     }
 }

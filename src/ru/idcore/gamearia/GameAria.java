@@ -2,6 +2,8 @@ package ru.idcore.gamearia;
 
 //*
 
+import java.util.ArrayList;
+
 public class GameAria {
     //
     private int horizontalSize;
@@ -11,6 +13,7 @@ public class GameAria {
     private String[] horizontalCoordinate = {"  ", " 1 ", " 2 "," 3 "," 4 "," 5 "," 6 "," 7 "," 8 "," 9 "," 10 "};
     //private String[][] stateArea;
     private GameZone[][] gameZones;
+    private ArrayList<Ship> ships;
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -57,6 +60,7 @@ public class GameAria {
         this.verticalSize = verticalSize;
         //stateArea = new String[verticalSize][horizontalSize];
         this.gameZones = new GameZone[verticalSize][horizontalSize];
+        this.ships = new ArrayList<Ship>();
         for (int i = 0; i < verticalSize; i++) {
             for (int j = 0; j < horizontalSize; j++) {
                 if (i == 0 && j == 0) {
@@ -82,6 +86,14 @@ public class GameAria {
 //    public void setStateArea(int i, int j, String state) {
 //        this.stateArea[i][j] = state;
 //    }
+
+    public ArrayList<Ship> getShips() {
+        return ships;
+    }
+
+    public void setShips(Ship ship) {
+        this.ships.add(ship);
+    }
 
     public int getHorizontalSize() {
         return horizontalSize;

@@ -1,9 +1,13 @@
 package ru.idcore.gamearia;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class Ship {
     //размер корабля
+    private String[] nameCatalog = {"Торпедный катер (однопалубный)", "Эсминец (двухпалубный)", "Крейсер (трехпалубный)", "Линкор (четырехпалубный)"};
+    private String nameShip;
     private int size;
     //начальные координаты для рисования корабля
     private int verticalStartPoint;
@@ -15,6 +19,7 @@ public class Ship {
 
     public Ship(int size, GameZone[][] gameZones, String stateOld, String stateNew) {
         this.size = size;
+        this.nameShip = nameCatalog[size - 1];
         this.gameZones = new GameZone[size];
         //поиск расположения корабля
         findShipPosition(size, gameZones, stateOld);
@@ -33,6 +38,14 @@ public class Ship {
         for (GameZone gameZone: this.gameZones) {
                 gameZone.setStateName(stateNew);
             }
+    }
+
+    public String getNameShip() {
+        return nameShip;
+    }
+
+    public void setNameShip(String nameShip) {
+        this.nameShip = nameShip;
     }
 
     public int getSize() {
