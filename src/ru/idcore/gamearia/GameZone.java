@@ -42,4 +42,11 @@ public class GameZone {
     public void setMapGameZone(Map<String, Map<Integer, Integer>> mapGameZone) {
         this.mapGameZone = mapGameZone;
     }
+
+    public boolean checkGameZoneFree(String stateName) {
+        if (this.stateName.equals(stateName)) {
+            return true;
+        }
+        return false;
+    }
 }

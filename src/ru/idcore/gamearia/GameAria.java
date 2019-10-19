@@ -9,8 +9,8 @@ public class GameAria {
     private String[] state = {"   ", " o ", " + ", " v ", " x ", " X "};
     private String[] verticalCoordinate = {"  ", " А ", " Б "," В "," Г "," Д "," Е "," Ж "," З "," И "," К "};
     private String[] horizontalCoordinate = {"  ", " 1 ", " 2 "," 3 "," 4 "," 5 "," 6 "," 7 "," 8 "," 9 "," 10 "};
-    private String[][] stateArea;
-    public GameZone[][] gameZones;
+    //private String[][] stateArea;
+    private GameZone[][] gameZones;
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -32,10 +32,10 @@ public class GameAria {
     public static final String BACKGROUND_WHITE = "\u001b[47;1m";
 
 
-    public GameAria(int verticalSize, int  horizontalSize) {
+    public GameAria(int verticalSize, int  horizontalSize, String s) {
         this.horizontalSize = horizontalSize;
         this.verticalSize = verticalSize;
-        stateArea = new String[verticalSize][horizontalSize];
+        //stateArea = new String[verticalSize][horizontalSize];
         for (int i = 0; i < verticalSize; i++) {
             for (int j = 0; j < horizontalSize; j++) {
 //                if (i == 0 && j == 0) {
@@ -52,10 +52,10 @@ public class GameAria {
 
     }
 
-    public GameAria() {
-        this.horizontalSize = 11;
-        this.verticalSize = 11;
-        stateArea = new String[verticalSize][horizontalSize];
+    public GameAria(int verticalSize, int  horizontalSize) {
+        this.horizontalSize = horizontalSize;
+        this.verticalSize = verticalSize;
+        //stateArea = new String[verticalSize][horizontalSize];
         this.gameZones = new GameZone[verticalSize][horizontalSize];
         for (int i = 0; i < verticalSize; i++) {
             for (int j = 0; j < horizontalSize; j++) {
@@ -75,13 +75,13 @@ public class GameAria {
 
 
 
-    public String getStateArea(int i, int j) {
-        return stateArea[i][j];
-    }
+//    public String getStateArea(int i, int j) {
+//        return stateArea[i][j];
+//    }
 
-    public void setStateArea(int i, int j, String state) {
-        this.stateArea[i][j] = state;
-    }
+//    public void setStateArea(int i, int j, String state) {
+//        this.stateArea[i][j] = state;
+//    }
 
     public int getHorizontalSize() {
         return horizontalSize;
@@ -109,5 +109,31 @@ public class GameAria {
         return horizontalCoordinate[index];
     }
 
+    public GameZone[][] getGameZones() {
+        return gameZones;
+    }
 
+    public void setGameZones(GameZone[][] gameZones) {
+        this.gameZones = gameZones;
+    }
+
+    public void drawGameAria() {
+        //отрисовка GameAria
+        for (int i = 0; i < verticalSize; i++) {
+            for (int j = 0; j < horizontalSize; j++) {
+                if (gameZones[i][j].getStateName().equals(" + ")) {
+                    System.out.print(BACKGROUND_WHITE + gameZones[i][j].getStateName() + ANSI_RESET );
+                } else if (gameZones[i][j].getStateName().equals(" o ")) {
+                    System.out.print(BACKGROUND_BLUE + gameZones[i][j].getStateName() + ANSI_RESET );
+                }else if (gameZones[i][j].getStateName().equals(" x ")) {
+                    System.out.print(BACKGROUND_BLUE + ANSI_RED + gameZones[i][j].getStateName() + ANSI_RESET );
+                }else if (gameZones[i][j].getStateName().equals(" X ")) {
+                    System.out.print(BACKGROUND_RED + gameZones[i][j].getStateName() + ANSI_RESET );
+                }else {
+                    System.out.print(gameZones[i][j].getStateName());
+                }
+            }
+            System.out.print("\n");
+        }
+    }
 }
