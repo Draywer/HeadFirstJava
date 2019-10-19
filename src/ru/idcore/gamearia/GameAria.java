@@ -134,7 +134,7 @@ public class GameAria {
         for (int i = 0; i < verticalSize; i++) {
             for (int j = 0; j < horizontalSize; j++) {
                 if (gameZones[i][j].getStateName().equals(" + ")) {
-                    System.out.print(BACKGROUND_WHITE + gameZones[i][j].getStateName() + ANSI_RESET );
+                    System.out.print(BACKGROUND_YELLOW + gameZones[i][j].getStateName() + ANSI_RESET );
                 } else if (gameZones[i][j].getStateName().equals(" o ")) {
                     System.out.print(BACKGROUND_BLUE + gameZones[i][j].getStateName() + ANSI_RESET );
                 }else if (gameZones[i][j].getStateName().equals(" x ")) {

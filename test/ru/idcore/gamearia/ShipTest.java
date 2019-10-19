@@ -62,6 +62,12 @@ class ShipTest {
                 gameAria.setShips(ship);
             }
         }
+
+        gameAria.drawGameAria();
+        //System.out.println("");
+        System.out.println("ПРИКАЗЫВАЮ: ПОТОПИТЬ ВРАЖЕСКУЮ ФЛОТИЛИЮ! ЗАЛП ИЗ ВСЕХ ОРУДИЙ! ОГОНЬ!");
+        //System.out.println("");
+
         //выстрел
 //        gameAria.getGameZones()[5][5].setStateName(gameAria.getState(4));
 //        gameAria.getGameZones()[1][1].setStateName(gameAria.getState(4));
@@ -92,6 +98,10 @@ class ShipTest {
 
 
         gameAria.drawGameAria();
+        System.out.println("");
+        System.out.println("КРЫМ НАШ! УРА!");
+        System.out.println("");
+
 //
 //        System.out.println(gameAria.getGameZones()[1][1].checkGameZoneFree(gameAria.getState(1)));
 //        System.out.println(gameAria.getGameZones()[1][2].checkGameZoneFree(gameAria.getState(1)));
