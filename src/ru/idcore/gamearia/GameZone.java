@@ -11,7 +11,7 @@ public class GameZone {
     private Map<Map<Integer, Integer>, String> mapGameZone;
 
     //String stateName
-    public GameZone(GameAria gameAria, int stateNameIndex, int verticalCoordinate, int horizontalCoordinate) {
+    public GameZone(GameArea gameArea, int stateNameIndex, int verticalCoordinate, int horizontalCoordinate) {
         //this.stateName = gameAria.getState(stateNameIndex);
         this.stateNameIndex = stateNameIndex;
         this.verticalCoordinate = verticalCoordinate;
@@ -28,8 +28,12 @@ public class GameZone {
 
     public void setStateName(String stateName) {
         this.stateName = stateName;
-    }
 
+    }
+    public void setStateAfterFire(GameArea gameArea, int stateNameIndex){
+        this.stateNameIndex = stateNameIndex;
+        this.stateName = gameArea.getState(stateNameIndex);
+    }
 
 
     public int getVerticalCoordinate() {
@@ -65,36 +69,52 @@ public class GameZone {
     }
 
     //получение координат зоны
-    public String getGameZoneCoordinate(GameAria gameAria){
+    public String getGameZoneCoordinate(GameArea gameArea){
         //
-        String gameZoneCoordinate = gameAria.getVerticalCoordinate(verticalCoordinate) + horizontalCoordinate;
+        String gameZoneCoordinate = gameArea.getVerticalCoordinate(verticalCoordinate) + horizontalCoordinate;
         return gameZoneCoordinate;
     }
+
     //получение состояния зоны
-    public String getGameZoneState(GameAria gameAria){
+    public String getGameZoneState(GameArea gameArea){
         //
         String getGameZoneState = "";
         switch (this.getStateNameIndex()) {
             case 0:
-                getGameZoneState = getGameZoneCoordinate(gameAria) + " - ";
+                getGameZoneState = getGameZoneCoordinate(gameArea) + " - ";
                 return getGameZoneState;
             case 1:
-                getGameZoneState = getGameZoneCoordinate(gameAria) + " - " + "Cвободная игровая зона";
+                getGameZoneState = getGameZoneCoordinate(gameArea) + " - " + "Cвободная игровая зона";
                 return getGameZoneState;
             case 2:
-                getGameZoneState = getGameZoneCoordinate(gameAria) + " - " + "Активная зона корабля";
+                getGameZoneState = getGameZoneCoordinate(gameArea) + " - " + "Активная зона корабля";
                 return getGameZoneState;
             case 3:
-                getGameZoneState = getGameZoneCoordinate(gameAria) + " - " + "тех.зона";
+                getGameZoneState = getGameZoneCoordinate(gameArea) + " - " + "тех.зона";
                 return getGameZoneState;
             case 4:
-                getGameZoneState = getGameZoneCoordinate(gameAria) + " - " + "Пораженная зона корабля. Ранение";
+                getGameZoneState = getGameZoneCoordinate(gameArea) + " - " + "Пораженная зона корабля. Ранение";
                 return getGameZoneState;
             case 5:
-                getGameZoneState = getGameZoneCoordinate(gameAria) + " - " + "Пораженная зона корабля. Ранение";
+                getGameZoneState = getGameZoneCoordinate(gameArea) + " - " + "Пораженная зона корабля. Ранение";
                 return getGameZoneState;
 
         }
         return getGameZoneState;
+    }
+
+    public String drawGameZone(GameArea gameArea){
+        switch (this.getStateName()) {
+            case " + ":
+                return gameArea.BACKGROUND_YELLOW + this.getStateName() + gameArea.ANSI_RESET;
+            case " o ":
+                return gameArea.BACKGROUND_BLUE + this.getStateName() + gameArea.ANSI_RESET;
+            case " x ":
+                return gameArea.BACKGROUND_BLUE + gameArea.ANSI_RED + this.getStateName() + gameArea.ANSI_RESET;
+            case " X ":
+                return gameArea.BACKGROUND_RED + this.getStateName() + gameArea.ANSI_RESET;
+            default:
+                return this.getStateName();
+        }
     }
 }

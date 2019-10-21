@@ -4,51 +4,73 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GameAriaTest {
     public static void main(String[] args) throws InterruptedException {
-//        GameAria gameAria = new GameAria(10,10);
-//        gameAria.setStateArea(0,0," + ");
-//        gameAria.setStateArea(0,1," + ");
-//        gameAria.setStateArea(0,2," X ");
-//        gameAria.setStateArea(0,3," X ");
-//
-//        gameAria.setStateArea(1,0," x ");
-//        gameAria.setStateArea(1,1," x ");
-//        gameAria.setStateArea(1,2," x ");
-//        gameAria.setStateArea(1,3," x ");
-//        gameAria.setStateArea(1,4," x ");
-//        gameAria.setStateArea(0,4," x ");
-//
-//        gameAria.setStateArea(0,5," X ");
-//        gameAria.setStateArea(1,5," + ");
-//        gameAria.setStateArea(2,5," X ");
-//        gameAria.setStateArea(3,5," + ");
-//
-//        gameAria.setStateArea(7,0," + ");
-//        gameAria.setStateArea(7,1," X ");
-//        gameAria.setStateArea(7,2," + ");
-//
-//        gameAria.setStateArea(3,3," X ");
-//
-//
-//        System.out.print("   ");
-//        for (int i = 0; i < gameAria.getHorizontalSize(); i++) {
-//            System.out.print(gameAria.getHorizontalCoordinate(i));
-//        }
-//        System.out.print("\n");
-//        for (int i = 0; i < gameAria.getHorizontalSize(); i++) {
-//            System.out.print(gameAria.getVerticalCoordinate(i));
-//            for (int j= 0; j < gameAria.getHorizontalSize(); j++) {
-//                if (gameAria.getStateArea(i,j).equals(" + ")) {
-//                    System.out.print(gameAria.BACKGROUND_WHITE + gameAria.getStateArea(i,j) + gameAria.ANSI_RESET );
-//                } else if (gameAria.getStateArea(i,j).equals(" o ")) {
-//                    System.out.print(gameAria.BACKGROUND_BLUE + gameAria.getStateArea(i,j) + gameAria.ANSI_RESET );
-//                }else if (gameAria.getStateArea(i,j).equals(" x ")) {
-//                    System.out.print(gameAria.BACKGROUND_BLUE + gameAria.ANSI_RED + gameAria.getStateArea(i,j) + gameAria.ANSI_RESET );
-//                }else if (gameAria.getStateArea(i,j).equals(" X ")) {
-//                    System.out.print(gameAria.BACKGROUND_RED + gameAria.getStateArea(i,j) + gameAria.ANSI_RESET );
-//                }
-//            }
-//            System.out.print("\n");
-//        }
-//    }
+        GameArea gameArea = new GameArea(11, 11);
+        GameArea gameAreaComputer = new GameArea(11, 11);
+//        gameArea.drawGameArea();
+//        gameAreaComputer.drawGameArea();
+
+        //Формируем флотилию и расставляем ее на игровом поле
+        for (int i = 5; i >= 1; i--) {
+            for (int j = 1; j <= 4 - i +1; j++) {
+                Ship ship = new Ship(i, gameArea, gameArea.getGameZones(),  2);
+                gameArea.setShips(ship);
+                //System.out.println(ship.getShipNote(gameArea));
+                //System.out.println("\n");
+            }
+        }
+
+        //Формируем флотилию и расставляем ее на игровом поле
+        for (int i = 5; i >= 1; i--) {
+            for (int j = 1; j <= 4 - i +1; j++) {
+                Ship ship = new Ship(i, gameAreaComputer, gameAreaComputer.getGameZones(),  2);
+                gameAreaComputer.setShips(ship);
+                //System.out.println(ship.getShipNote(gameAreaComputer));
+                //System.out.println("\n");
+            }
+        }
+
+        GameArea.drawGameArea(gameArea, gameAreaComputer);
+        //GameArea.shipNotes(gameArea, gameAreaComputer);
+
+        //потопить все корабли - залп из всех орудий
+        for (int i = 1; i <= 6; i++) {
+            for (int j = 1; j <= 6; j++) {
+                gameArea.getGameZones()[i][j].setStateAfterFire(gameArea, 4);
+            }
+        }
+
+        //потопить все корабли - залп из всех орудий
+        for (int i = 4; i <= 9; i++) {
+            for (int j = 4; j <= 9; j++) {
+                gameAreaComputer.getGameZones()[i][j].setStateAfterFire(gameAreaComputer, 4);
+            }
+        }
+
+        System.out.println("");
+        System.out.println("Обстреляли зоны");
+        System.out.println("");
+
+        //проверка попаданий в корабли
+        for (Ship ship: gameArea.getShips()
+        ) {
+            ship.setCountHit(gameArea);
+        }
+
+        //проверка попаданий в корабли
+        for (Ship ship: gameAreaComputer.getShips()
+        ) {
+            ship.setCountHit(gameArea);
+        }
+
+        GameArea.drawGameArea(gameArea, gameAreaComputer);
+
+        //выводим состояния кораблей после атаки
+        System.out.println("\n");
+        System.out.println("Состояние кораблей - Игрок2: Компьютер");
+        System.out.println("\n");
+        for (Ship ship: gameAreaComputer.getShips()
+        ) {
+            System.out.println(ship.getShipNote(gameAreaComputer));
+        }
     }
 }

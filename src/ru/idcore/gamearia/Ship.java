@@ -22,7 +22,7 @@ public class Ship {
     //соседние корабли
     private Set<Ship> shipSet;
 
-    public Ship(int size, GameAria gameAria, GameZone[][] gameZones, int stateNewIndex) {
+    public Ship(int size, GameArea gameArea, GameZone[][] gameZones, int stateNewIndex) {
         //размер корабля
         this.size = size;
         String[] nameCatalog = {"Торпедный катер (однопалубный)", "Эсминец (двухпалубный)", "Крейсер (трехпалубный)", "Линкор (четырехпалубный)", "Адмирал (пятипалубный)"};
@@ -33,7 +33,7 @@ public class Ship {
         this.shipState = "НЕПОВРЕЖДЕН";
 
         //поиск расположения корабля и определение начальной зоны расположения корабля
-        findShipPosition(size, gameZones, gameAria.getState(1));
+        findShipPosition(size, gameZones, gameArea.getState(1));
         //располагаем корабль на игровом поле
         for (int i = 0; i < size; i++) {
             if (shipOrient) {
@@ -46,7 +46,7 @@ public class Ship {
         }
         //изменям название зоны, в привязке к кораблю
         for (GameZone gameZone: this.gameZones) {
-                gameZone.setStateName(gameAria.getState(stateNewIndex));
+                gameZone.setStateName(gameArea.getState(stateNewIndex));
                 gameZone.setStateNameIndex(stateNewIndex);
             }
     }
@@ -108,13 +108,13 @@ public class Ship {
     }
 
     //устанавливаем количество попаданий в корабль
-    public void setCountHit(GameAria gameAria) {
+    public void setCountHit(GameArea gameArea) {
         //this.countHit = 0;
         for (GameZone zone: gameZones
              ) {
-            if (zone.getStateName().equals(gameAria.getState(4))) {
+            if (zone.getStateName().equals(gameArea.getState(4))) {
                 this.countHit++;
-                zone.setStateName(gameAria.getState(5));
+                zone.setStateName(gameArea.getState(5));
             }
         }
     }
@@ -375,59 +375,46 @@ public class Ship {
         }
     }
     //получение строки координат зон, занимаемых кораблем в формате А1
-    public String getShipGameZone(GameAria gameAria){
+    public String getShipGameZone(GameArea gameArea){
         //
         StringBuilder shipGameZone = new StringBuilder();
 
         for (GameZone gameZone : this.gameZones
              ) {
-            shipGameZone.append(gameZone.getGameZoneCoordinate(gameAria)).append(" ");
+            shipGameZone.append(gameZone.getGameZoneCoordinate(gameArea)).append(" ");
         }
         return shipGameZone.toString();
     }
 
-    //получение состояния зон корабля ф формате: зона - состояние
-    public String getShipGameZoneState (GameAria gameAria){
+    //получение состояния зон корабля в формате: зона - состояние
+    public String getShipGameZoneState (GameArea gameArea){
         //
         String shipGameZoneState = "";
         for (GameZone gameZone : this.gameZones
              ) {
-            shipGameZoneState = shipGameZoneState + gameZone.getGameZoneState(gameAria) + "\n\t\t\t\t\t\t";
+            shipGameZoneState = shipGameZoneState + gameZone.getGameZoneState(gameArea) + "\n\t\t\t\t\t\t";
         }
 
         return shipGameZoneState;
     }
 
-    //toString
-    public String getShipNote(GameAria gameAria){
+    //получение справочной информации по кораблю
+    public String getShipNote(GameArea gameArea){
         String shipNote = "";
 
         shipNote = "Корабль: " + this.toString() + "\n" + "Тип: " + this.nameShip + "\n" +
                 "Размер: " + this.size + "\n" +
-                "Начальные координаты: " + gameAria.getVerticalCoordinate(verticalStartPoint) + horizontalStartPoint + "\n" +
+                "Начальные координаты: " + gameArea.getVerticalCoordinate(verticalStartPoint) + horizontalStartPoint + "\n" +
                 "Тип расположения: " + (isShipOrient()? "горизонтально":"вертикально") + "\n" +
 
-                "Расположение: " + this.getShipGameZone(gameAria) + "\n" +
-                "Состояние частей корабля: " + "\n\t\t\t\t\t\t" + this.getShipGameZoneState(gameAria);
-
-//
-//
-//
-//
-//        //начальные координаты для рисования корабля
-//        private int verticalStartPoint;
-//        private int horizontalStartPoint;
-//        //зона(область), занимаемая кораблем
-//        private GameZone[] gameZones;
-//        //ориентация корабля: true - горизонтально, false - вертикально
-//        private boolean shipOrient;
-//        //количество попаданий
-//        private int countHit;
-//        //состояние корабля
-//        private String shipState;
-//        //соседние корабли
-//        private Set<Ship> shipSet;
-
+                "Расположение: " + this.getShipGameZone(gameArea) + "\n" +
+                "Состояние зон корабля: " + "\n\t\t\t\t\t\t" + this.getShipGameZoneState(gameArea) + "\n" +
+                "Количество пораженных зон (попаданий): " + this.getCountHit() + "\n" +
+                "Состояние: " + this.getShipState() + "\n" + "\n" +
+        "***************************************************************";
+        //добавить
+        //соседние корабли
+        //private Set<Ship> shipSet;
         return shipNote;
     }
 
