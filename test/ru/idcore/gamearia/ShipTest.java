@@ -56,10 +56,12 @@ class ShipTest {
 //        Ship ship8 = new Ship(4, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
 
         //Формируем флотилию и расставляем ее на игровом поле
-        for (int i = 4; i >= 1; i--) {
+        for (int i = 5; i >= 1; i--) {
             for (int j = 1; j <= 4 - i +1; j++) {
-                Ship ship = new Ship(i, gameAria.getGameZones(),gameAria.getState(1), gameAria.getState(2));
+                Ship ship = new Ship(i, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
                 gameAria.setShips(ship);
+                System.out.println(ship.getShipNote());
+                //System.out.println("\n");
             }
         }
 
