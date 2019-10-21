@@ -32,7 +32,7 @@ public class Ship {
         this.countHit = 0;
         this.shipState = "НЕПОВРЕЖДЕН";
 
-        //поиск расположения корабля
+        //поиск расположения корабля и определение начальной зоны расположения корабля
         findShipPosition(size, gameZones, stateOld);
         //располагаем корабль на игровом поле
         for (int i = 0; i < size; i++) {
@@ -373,17 +373,41 @@ public class Ship {
 
         }
     }
+    //получение строки координат зон, занимаемых кораблем в формате А1
+    public String getShipGameZone(GameAria gameAria){
+        //
+        StringBuilder shipGameZone = new StringBuilder();
+
+        for (GameZone gameZone : this.gameZones
+             ) {
+            shipGameZone.append(gameZone.getGameZoneCoordinate(gameAria)).append(" ");
+        }
+        return shipGameZone.toString();
+    }
+
+    //получение состояния зон корабля ф формате: зона - состояние
+    public String getShipGameZoneState (GameAria gameAria){
+        //
+        String shipGameZoneState = "";
+        for (GameZone gameZone : this.gameZones
+             ) {
+            shipGameZoneState = shipGameZoneState + gameZone.getGameZoneState(gameAria) + "\n\t\t\t\t\t\t";
+        }
+
+        return shipGameZoneState;
+    }
 
     //toString
-    public String getShipNote(){
+    public String getShipNote(GameAria gameAria){
         String shipNote = "";
 
-        shipNote = "Данные корабля: " + this.toString() + "\n" + "Тип: " + this.nameShip + "\n" +
-                "Размер корабля: " + this.size + "\n" +
-                "Начальные координаты: " + verticalStartPoint + ", " + horizontalStartPoint + "\n" +
+        shipNote = "Корабль: " + this.toString() + "\n" + "Тип: " + this.nameShip + "\n" +
+                "Размер: " + this.size + "\n" +
+                "Начальные координаты: " + gameAria.getVerticalCoordinate(verticalStartPoint) + horizontalStartPoint + "\n" +
                 "Тип расположения: " + (isShipOrient()? "горизонтально":"вертикально") + "\n" +
 
-                "Пространство, занимаемое кораблем: " + gameZones.toString() + "\n";
+                "Расположение: " + this.getShipGameZone(gameAria) + "\n" +
+                "Состояние частей корабля: " + "\n\t\t\t\t\t\t" + this.getShipGameZoneState(gameAria);
 
 //
 //

@@ -60,7 +60,7 @@ class ShipTest {
             for (int j = 1; j <= 4 - i +1; j++) {
                 Ship ship = new Ship(i, gameAria.getGameZones(), gameAria.getState(1), gameAria.getState(2));
                 gameAria.setShips(ship);
-                System.out.println(ship.getShipNote());
+                System.out.println(ship.getShipNote(gameAria));
                 //System.out.println("\n");
             }
         }

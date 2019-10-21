@@ -5,18 +5,20 @@ import java.util.Map;
 
 public class GameZone {
     private String stateName;
+    private int stateNameIndex;
     private final int verticalCoordinate;
     private final int horizontalCoordinate;
-    private Map<String, Map<Integer, Integer>> mapGameZone;
+    private Map<Map<Integer, Integer>, String> mapGameZone;
 
-    public GameZone(String stateName, int verticalCoordinate, int horizontalCoordinate) {
+    public GameZone(String stateName, int stateNameIndex, int verticalCoordinate, int horizontalCoordinate) {
         this.stateName = stateName;
+        this.stateNameIndex = stateNameIndex;
         this.verticalCoordinate = verticalCoordinate;
         this.horizontalCoordinate = horizontalCoordinate;
-        this.mapGameZone = new HashMap<String, Map<Integer, Integer>>();
+        this.mapGameZone = new HashMap<Map<Integer, Integer>, String>();
         Map<Integer, Integer> mapCoordinate = new HashMap<>();
         mapCoordinate.put(verticalCoordinate, horizontalCoordinate);
-        mapGameZone.put(stateName, mapCoordinate);
+        mapGameZone.put(mapCoordinate, stateName);
     }
 
     public String getStateName() {
@@ -35,18 +37,44 @@ public class GameZone {
         return horizontalCoordinate;
     }
 
-    public Map<String, Map<Integer, Integer>> getMapGameZone() {
+    public Map<Map<Integer, Integer>, String> getMapGameZone() {
         return mapGameZone;
     }
 
-    public void setMapGameZone(Map<String, Map<Integer, Integer>> mapGameZone) {
+    public void setMapGameZone(Map<Map<Integer, Integer>, String> mapGameZone) {
         this.mapGameZone = mapGameZone;
     }
 
+    public int getStateNameIndex() {
+        return stateNameIndex;
+    }
+
+    public void setStateNameIndex(int stateIndex) {
+        this.stateNameIndex = stateIndex;
+    }
+
+    //проверка занятости зоны
     public boolean checkGameZoneFree(String stateName) {
         if (this.stateName.equals(stateName)) {
             return true;
         }
         return false;
+    }
+
+    //получение координат зоны
+    public String getGameZoneCoordinate(GameAria gameAria){
+        //
+        String gameZoneCoordinate = gameAria.getVerticalCoordinate(verticalCoordinate) + horizontalCoordinate;
+        return gameZoneCoordinate;
+    }
+    //получение состояния зоны
+    public String getGameZoneState(GameAria gameAria){
+        //
+        String getGameZoneState = getGameZoneCoordinate(gameAria) + " - " + getStateName();
+
+
+
+        return getGameZoneState;
+
     }
 }
