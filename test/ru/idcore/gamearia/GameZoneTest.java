@@ -9,7 +9,7 @@ class GameZoneTest {
     public static void main(String[] args) {
         GameAria gameAria = new GameAria(11,11);
 
-        Ship ship = new Ship(4, gameAria.getGameZones(), gameAria.getState(1),gameAria.getState(2));
+        Ship ship = new Ship(4, gameAria, gameAria.getGameZones(), 2);
 
         //выстрел
         gameAria.getGameZones()[1][3].setStateName(gameAria.getState(5));

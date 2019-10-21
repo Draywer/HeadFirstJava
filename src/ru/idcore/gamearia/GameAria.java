@@ -64,13 +64,17 @@ public class GameAria {
         for (int i = 0; i < verticalSize; i++) {
             for (int j = 0; j < horizontalSize; j++) {
                 if (i == 0 && j == 0) {
-                    gameZones[i][j] = new GameZone(state[0], 0, i, j);
+                    gameZones[i][j] = new GameZone(this,0, i, j);
+                    gameZones[i][j].setStateName(state[0]);
                 } else if (i == 0 && j > 0) {
-                    gameZones[i][j] = new GameZone(horizontalCoordinate[j], 0, i, j);
+                    gameZones[i][j] = new GameZone(this, j, i, j);
+                    gameZones[i][j].setStateName(getHorizontalCoordinate(j));
                 } else if (i > 0 && j == 0) {
-                    gameZones[i][j] = new GameZone(verticalCoordinate[i], 0, i, j);
+                    gameZones[i][j] = new GameZone(this, i, i, j);
+                    gameZones[i][j].setStateName(getVerticalCoordinate(i));
                 } else if (i > 0 && j > 0) {
-                    gameZones[i][j] = new GameZone(state[1], 1, i, j);
+                    gameZones[i][j] = new GameZone(this, 1, i, j);
+                    gameZones[i][j].setStateName(getState(1));
                 }
             }
         }

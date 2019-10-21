@@ -22,7 +22,7 @@ public class Ship {
     //соседние корабли
     private Set<Ship> shipSet;
 
-    public Ship(int size, GameZone[][] gameZones, String stateOld, String stateNew) {
+    public Ship(int size, GameAria gameAria, GameZone[][] gameZones, int stateNewIndex) {
         //размер корабля
         this.size = size;
         String[] nameCatalog = {"Торпедный катер (однопалубный)", "Эсминец (двухпалубный)", "Крейсер (трехпалубный)", "Линкор (четырехпалубный)", "Адмирал (пятипалубный)"};
@@ -33,7 +33,7 @@ public class Ship {
         this.shipState = "НЕПОВРЕЖДЕН";
 
         //поиск расположения корабля и определение начальной зоны расположения корабля
-        findShipPosition(size, gameZones, stateOld);
+        findShipPosition(size, gameZones, gameAria.getState(1));
         //располагаем корабль на игровом поле
         for (int i = 0; i < size; i++) {
             if (shipOrient) {
@@ -46,7 +46,8 @@ public class Ship {
         }
         //изменям название зоны, в привязке к кораблю
         for (GameZone gameZone: this.gameZones) {
-                gameZone.setStateName(stateNew);
+                gameZone.setStateName(gameAria.getState(stateNewIndex));
+                gameZone.setStateNameIndex(stateNewIndex);
             }
     }
 
