@@ -93,8 +93,6 @@ public class GameZone {
                 getGameZoneState = getGameZoneCoordinate(gameArea) + " - " + "тех.зона";
                 return getGameZoneState;
             case 4:
-                getGameZoneState = getGameZoneCoordinate(gameArea) + " - " + "Пораженная зона корабля. Ранение";
-                return getGameZoneState;
             case 5:
                 getGameZoneState = getGameZoneCoordinate(gameArea) + " - " + "Пораженная зона корабля. Ранение";
                 return getGameZoneState;
